@@ -1,10 +1,11 @@
 //import conn from './conn'
 
 import md5 from 'md5'
-import { DB } from './dbPrueba.js'
+import { DB } from '../db/dbPrueba.js'
+import getUserById from './getUserById.js'
+
 export default function getUser({ username = "", password = "" }) {
-    const decodedPassword = atob(password)
-    const encodePassword = md5(decodedPassword)
+    const encodePassword = md5(password)
     // const query = `SELECT * FROM 'table' WHERE 'username'=${username} AND 'password'=${password}`
     // const result = await conn.query(query, (err, response, _fields) => {
     //     if (err) {
@@ -15,11 +16,13 @@ export default function getUser({ username = "", password = "" }) {
     // })
     // return result
     const users = DB.users
-    let l = {}
-    console.log(decodedPassword, encodePassword);
-    const thereUser = e => users[e].username === username && users[e].password === encodePassword
-    for (const e in users) {
-        if (thereUser(e)) l = users[e]
+    const thereUser = e => e.username === username && e.password === encodePassword
+    const user = users.filter(thereUser)[0]
+    if (!user) return {}
+    return {
+        id: user.id,
+        password: user.password,
+        departamento: user.departamento,
+        lista_peticiones: getUserById(user.lista_peticiones)
     }
-    return l
 }
