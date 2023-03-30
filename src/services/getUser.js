@@ -18,11 +18,11 @@ export default function getUser({ username = "", password = "" }) {
     const users = DB.users
     const thereUser = e => e.username === username && e.password === encodePassword
     const user = users.filter(thereUser)[0]
-    if (!user) return {}
+    if (!user) return []
     return {
         id: user.id,
-        password: user.password,
+        username: user.username,
         departamento: user.departamento,
-        lista_peticiones: getUserById(user.lista_peticiones)
+        listaPeticiones: user.departamento === 'informatica' ? DB.peticiones : user.lista_peticiones === "" ? "" : getUserById(user.lista_peticiones)
     }
 }

@@ -3,14 +3,19 @@ dotenv.config({ debug: true })
 import express, { json } from "express";
 import cors from "cors";
 import getUser from './services/getUser.js';
-import getRequestById from './services/getRequestById.js'
 import getUserById from './services/getUserById.js';
+import getAllRequest from './services/getAllRequest.js';
 const app = express()
 app.use(cors())
 app.use(json())
 
 app.get("/", (_req, res) => {
     res.send("Fundacite Aragua")
+})
+
+app.get('/AllRequest', (_req, res) => {
+    res.send(getAllRequest())
+    res.end()
 })
 app.get("/user/:id", (req, res) => {
     const { id } = req.params
