@@ -1,28 +1,10 @@
-//import conn from './conn'
-
-import md5 from 'md5'
-import { DB } from '../db/dbPrueba.js'
-import getUserById from './getUserById.js'
-
-export default function getUser({ username = "", password = "" }) {
-    const encodePassword = md5(password)
-    // const query = `SELECT * FROM 'table' WHERE 'username'=${username} AND 'password'=${password}`
-    // const result = await conn.query(query, (err, response, _fields) => {
-    //     if (err) {
-    //         console.error(err)
-    //         conn.end()
-    //     }
-    //     return response
-    // })
-    // return result
-    const users = DB.users
-    const thereUser = e => e.username === username && e.password === encodePassword
-    const user = users.filter(thereUser)[0]
-    if (!user) return []
-    return {
-        id: user.id,
-        username: user.username,
-        departamento: user.departamento,
-        listaPeticiones: user.departamento === 'informatica' ? DB.peticiones : user.lista_peticiones === "" ? "" : getUserById(user.lista_peticiones)
-    }
+import md5 from "md5"
+import mongoose from "mongoose"
+//import { DB } from "../db/dbPrueba.js"
+import User from "../model/User.js"
+export default async function getUser({ username, password }) {
+    const passwordHash = md5(password)
+    const user = await User.find({ username, passwordHash }).populate('peticiones')
+    // mongoose.connection.close()
+    return user
 }
