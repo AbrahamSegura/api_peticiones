@@ -10,8 +10,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
-    "dev": "nodemon src"
+    "start": "node ./api/index.js",
+    "dev": "nodemon ./api/index.js"
   },
   "devDependencies": {
     "nodemon": "2.0.1"

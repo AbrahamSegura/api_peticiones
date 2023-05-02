@@ -12,21 +12,21 @@ app.use(cors());
 app.use(json());
 
 app.get("/", (_req, res) => {
-  res.send("Fundacite Aragua");
+  res.send("api/Fundacite Aragua");
 });
 
-app.get("/AllRequest", async (_req, res) => {
+app.get("api/AllRequest", async (_req, res) => {
   const request = await getAllRequest();
   res.send(request);
   res.end();
 });
-app.get("/user/:id", (req, res) => {
+app.get("api/user/:id", (req, res) => {
   const { id } = req.params;
   const user = getUserById({ id });
   res.json(user);
   res.end();
 });
-app.post("/request", async (req, res) => {
+app.post("api/request", async (req, res) => {
   const data = req.body;
   const response = await createRequest(data);
   res.send(response);
