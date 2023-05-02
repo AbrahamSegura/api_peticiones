@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import Peticion from "../model/Peticion.js"
+import Peticion from "./Peticion.js"
 const userSchema = new Schema({
     username: String,
     correo: String,
