@@ -1,10 +1,11 @@
 import Peticion from "../model/Peticion.js";
 import User from "../model/User.js";
 export default async function  createRequest(data){
-    const {tipo, descripcion, departamento, userId} = data.req
+    const {tipo, username, descripcion, departamento, userId} = data.req
     const user = await User.findById(userId)
     const peticion = new Peticion({
         tipo: data.descripcion2 ? data.descripcion2: tipo,
+        user:username,
         descripcion,
         departamento,
         estado: "en espera",

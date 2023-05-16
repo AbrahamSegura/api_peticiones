@@ -2,6 +2,7 @@ import { model, Schema } from "mongoose";
 
 const peticionSchema = new Schema({
     tipo: String,
+    user: String,
     descripcion: String,
     departamento: String,
     estado: String,
